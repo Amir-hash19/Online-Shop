@@ -11,6 +11,7 @@ services:
     volumes:
       - ./postgres/data:/var/lib/postgresql/data
     restart: always
+    command: postgres -c log_directory=/var/log/postgresql
     expose:
       - 5432
 
