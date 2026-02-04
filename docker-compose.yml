@@ -31,6 +31,9 @@ services:
     restart: always
     depends_on: 
       - db
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4  
 
   smtp4dev:
     image: rnwood/smtp4dev:v3

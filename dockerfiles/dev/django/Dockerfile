@@ -12,6 +12,7 @@ WORKDIR /usr/src/app
 
 COPY ./requirements.txt .
 
-RUN pip install --upgrade pip && pip install -r requirements.txt
+RUN pip install --upgrade pip \
+    && pip --default-timeout=100 install -r requirements.txt
 
 COPY ./core .
