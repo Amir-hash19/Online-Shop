@@ -1,4 +1,4 @@
-FROM python:3.10-slim-buster
+FROM python:3.12-slim
 
 
 LABEL maintainer="amirhosein.hydri1381@gmail.com"
@@ -13,6 +13,7 @@ WORKDIR /usr/src/app
 COPY ./requirements.txt .
 
 RUN pip install --upgrade pip \
-    && pip --default-timeout=100 install -r requirements.txt
+    && pip install -r requirements.txt 
+
 
 COPY ./core .
