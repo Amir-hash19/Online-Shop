@@ -56,11 +56,30 @@
         <!-- End Form -->
     </div>
 </div>
-
 {% endblock content %}
 
 
 {% block extra_js %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  {% if messages %}
+    {% for message in messages %}
+      Toastify({
+        text: "{{ message|escapejs }}",
+        duration: 3000,
+        gravity: "top",
+        position: "left",
+        style: { background: "red" }
+      }).showToast();
+    {% endfor %}
+  {% endif %}
+
+  // INITIALIZATION OF TOGGLE PASSWORD
+  new HSTogglePassword('.js-toggle-password')
+});
+</script>
+
 <script>
     // INITIALIZATION OF TOGGLE PASSWORD
     // =======================================================
