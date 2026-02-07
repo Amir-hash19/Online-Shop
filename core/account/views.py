@@ -8,5 +8,10 @@ class LoginView(auth_views.LoginView):
     redirect_authenticated_user = True
 
     def form_invalid(self, form):
-        messages.error(self.request, "email or password is not correct")
+        messages.error(self.request, "Email or Password is Incorrect")
         return super().form_invalid(form)
+
+
+
+class LogoutView(auth_views.LogoutView):
+    pass
