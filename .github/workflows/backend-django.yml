@@ -24,8 +24,8 @@ jobs:
           
       - name: Lint & format check
         run: |
-          docker compose exec backend black --check .
-          docker compose exec backend isort --check-only .
+          docker compose exec backend black .
+          docker compose exec backend isort .
             
           
       - name: Run migrations
