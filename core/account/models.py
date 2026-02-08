@@ -1,7 +1,7 @@
-from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
-from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 from .phone_number_validator import validate_iranian_cellphone_number
 
@@ -10,7 +10,6 @@ class UserType(models.IntegerChoices):
     customer = 1, _("customer")
     admin = 2, _("admin")
     superuser = 3, _("superuser")
-
 
 
 class UserManager(BaseUserManager):
@@ -48,8 +47,6 @@ class UserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
-
-
 class User(AbstractBaseUser, PermissionsMixin):
 
     email = models.EmailField(_("email address"), unique=True)
@@ -57,7 +54,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_verified = models.BooleanField(default=False)
     type = models.IntegerField(
-        choices=UserType.choices, default=UserType.customer.value)
+        choices=UserType.choices, default=UserType.customer.value
+    )
 
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
@@ -69,16 +67,16 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
-    
-
 
 
 class Profile(models.Model):
     user = models.OneToOneField("User", on_delete=models.CASCADE)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    phone_number = models.CharField(max_length=12, validators=[validate_iranian_cellphone_number])
-    image = models.ImageField(upload_to="profile/",default="profile/default.png")
+    phone_number = models.CharField(
+        max_length=12, validators=[validate_iranian_cellphone_number]
+    )
+    image = models.ImageField(upload_to="profile/", default="profile/default.png")
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
@@ -86,4 +84,3 @@ class Profile(models.Model):
         if self.first_name or self.last_name:
             return self.first_name + " " + self.last_name
         return "New User"
-    
