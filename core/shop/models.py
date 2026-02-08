@@ -30,6 +30,9 @@ class Product(models.Model):
     created_date = models.DateTimeField(auto_now_add=False)
     updated_date = models.DateTimeField(auto_now=False)
 
+    class Meta:
+        ordering = ["-created_date"]
+
 
 
 class ProductImage(models.Model):
