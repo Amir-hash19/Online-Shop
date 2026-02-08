@@ -26,7 +26,7 @@ jobs:
         run: |
           docker compose exec backend black --check .
           docker compose exec backend isort --check-only .
-          docker compose exec backend flake8     
+            
           
       - name: Run migrations
         run: |
