@@ -7,5 +7,8 @@ sqlparse==0.5.5
 typing_extensions==4.15.0
 django-debug-toolbar==4.2.0
 pillow 
+black
+isort
+flake8
 
 
