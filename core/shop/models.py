@@ -1,5 +1,5 @@
 from django.db import models
-
+from decimal import Decimal
 
 
 class ProductStatusType(models.IntegerChoices):
@@ -35,6 +35,13 @@ class Product(models.Model):
 
     class Meta:
         ordering = ["-created_date"]
+
+
+
+    def get_price(self):        
+        discount_amount = self.price * Decimal(self.discount_percent / 100)
+        discounted_amount = self.price - discount_amount
+        return round(discounted_amount)
 
 
     def __str__(self):
