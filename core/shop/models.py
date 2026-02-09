@@ -11,8 +11,11 @@ class ProductStatusType(models.IntegerChoices):
 class ProductCategory(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(allow_unicode=True)
-    created_date = models.DateTimeField(auto_now_add=False)
-    updated_date = models.DateTimeField(auto_now=False)
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.title} {self.created_date}"
 
 
 
@@ -27,16 +30,21 @@ class Product(models.Model):
     price = models.DecimalField(default=0, max_digits=10, decimal_places=0)
     discount_percent = models.IntegerField(default=0)
     status = models.IntegerField(choices=ProductStatusType.choices,default=ProductStatusType.draft)
-    created_date = models.DateTimeField(auto_now_add=False)
-    updated_date = models.DateTimeField(auto_now=False)
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ["-created_date"]
+
+
+    def __str__(self):
+        return f"{self.title} {self.created_date}"
+    
 
 
 
 class ProductImage(models.Model):
     product = models.ForeignKey("account.User", on_delete=models.CASCADE)
     file = models.ImageField(upload_to="product/extra-img/")
-    created_date = models.DateTimeField(auto_now_add=False)
-    updated_date = models.DateTimeField(auto_now=False)
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
