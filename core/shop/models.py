@@ -1,5 +1,6 @@
 from django.db import models
 from decimal import Decimal
+import re
 
 
 class ProductStatusType(models.IntegerChoices):
@@ -23,9 +24,10 @@ class Product(models.Model):
     user = models.ForeignKey("account.User",on_delete=models.PROTECT)
     category = models.ManyToManyField(ProductCategory)
     title = models.CharField(max_length=255)
-    slug = models.SlugField(allow_unicode=True)
+    slug = models.SlugField(allow_unicode=True, unique=True)
     image = models.ImageField(default="/default/product-image.png", upload_to="product/img/")
     description = models.TextField()
+    breif_description = models.TextField(null=True, blank=True)
     stock = models.PositiveIntegerField(default=0)
     price = models.DecimalField(default=0, max_digits=10, decimal_places=0)
     discount_percent = models.IntegerField(default=0)
@@ -36,12 +38,16 @@ class Product(models.Model):
     class Meta:
         ordering = ["-created_date"]
 
-
+    def get_show_price(self):
+        return '{:,}'.format(self.price)
 
     def get_price(self):        
         discount_amount = self.price * Decimal(self.discount_percent / 100)
         discounted_amount = self.price - discount_amount
-        return round(discounted_amount)
+        return '{:,}'.format(round(discounted_amount))
+    
+    def is_discounted(self):
+        return self.discount_percent != 0 
 
 
     def __str__(self):

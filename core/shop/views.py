@@ -19,3 +19,9 @@ class ShopProductGridView(ListView):
         return context
 
 
+class ShopProductDetailView(DetailView):
+    template_name = "shop/product-detail.html"
+    def get_queryset(self):
+        return Product.objects.filter(
+            status=ProductStatusType.publish.value
+        ).order_by('-id')
