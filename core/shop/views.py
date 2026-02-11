@@ -9,14 +9,22 @@ class ShopProductGridView(ListView):
     paginate_by = 9
 
     def get_queryset(self):
-        return Product.objects.filter(
+        queryset = Product.objects.filter(
             status=ProductStatusType.publish.value
-        ).order_by('-id')
+        )
+
+        query = self.request.GET.get("q")
+        if query:
+            queryset = queryset.filter(title__icontains=query)
+
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["total_items"] = self.get_queryset().count()
         return context
+
+
 
 
 class ShopProductDetailView(DetailView):

@@ -63,6 +63,18 @@
             <!-- Navbar Collapse -->
             <div id="navbarVerticalNavMenu" class="collapse navbar-collapse">
               <div class="w-100">
+                <form method="get">
+                      <div class="border-bottom pb-4 mb-4">
+                            <h5>جستو جوی کالا</h5>
+                            <div class="d-grid gap-2">
+                                <div class="form-group">
+                                    <label class="form-label d-flex" for="search-query-filter">جستو جو</label>
+                                    <input class="form-control" placeholder="واژه مورد نظر را وارد نمایید" type="text"
+                                        name="q" id="search-query-filter">
+                                </div>
+                            </div>
+                        </div>
+                </form>        
                 <!-- Form -->
                 <form>
                   <div class="border-bottom pb-4 mb-4">
@@ -109,6 +121,7 @@
                         <label class="form-check-label d-flex" for="nikeCheckbox">نایک <span class="ms-auto">(35)</span></label>
                       </div>
                       <!-- End Checkboxes -->
+                       
 
                       <!-- Checkboxes -->
                       <div class="form-check">
@@ -196,6 +209,19 @@
 
                   <div class="border-bottom pb-4 mb-4">
                     <h5>دسته بندی</h5>
+                            
+                            <div class="d-grid gap-2">
+                                <div class="mb-2 mb-sm-0 me-sm-2">
+                                    <select class="form-select form-select-sm" name="category_id"
+                                        id="category-id-filter">
+                                        <option value="" selected>انتخاب دسته بندی</option>
+                                        {% for category in categories %}
+                                        <option value="{{category.id}}">{{category.title}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>   
+              
 
                     <div class="d-grid gap-2">
                       <!-- Checkboxes -->
@@ -467,6 +493,10 @@
               </div>
               <!-- End Card -->
             </div>
+            {% empty %}
+              <div class="row text-center w-100 py-5">
+                <p class="text center">هیچ کالای برای نمایش وجود ندارد</p>
+              </div>
             {% endfor %}
             <!-- End Col -->
 
