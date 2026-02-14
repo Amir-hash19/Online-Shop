@@ -9,7 +9,15 @@ class ShopProductGridView(ListView):
     paginate_by = 9
 
     def get_paginate_by(self, queryset):
-        return self.request.GET.get("page_size", self.paginate_by)
+        page_size = self.request.GET.get("page_size")
+
+        if page_size:
+            try:
+                return int(page_size)
+            except (ValueError, TypeError):
+                pass
+            
+        return self.paginate_by    
 
     def get_queryset(self):
         queryset = Product.objects.filter(
@@ -43,9 +51,15 @@ class ShopProductGridView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["total_items"] = self.get_queryset().count()
+
+        queryset = self.get_queryset()
+
+        context["current_page_size"] = context["page_obj"].paginator.per_page
+        context["total_items"] = queryset.count()
         context["categories"] = ProductCategory.objects.all()
+
         return context
+
 
 
 
