@@ -14,4 +14,13 @@ def show_latest_product():
         return {"latest_products":latest_products}
     
 
-    
+
+@register.inclusion_tag("includes/similar-products.html")
+def show_similar_product(product):
+    similar_product = Product.objects.filter(
+        status=ProductStatusType.publish.value
+    ).order_by("-created_date")[:4]
+
+    return {"similar_product": similar_product}
+                
+         
