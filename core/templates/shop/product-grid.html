@@ -298,18 +298,16 @@
                             </select>
                   </div>
                 <!-- Select -->
-                          <div class="mb-2 mb-sm-0 me-sm-2">
-                              Current: <span id="current-page-size">تعداد در صفحه</span>
-                              <select class="form-select form-select-sm" id="page-size-filter">
-                                  <option value="">تعداد در صفحه</option>
-                                  <option value="5">5</option>
-                                  <option value="10">10</option>
-                                  <option value="20">20</option>
-                                  <option value="30">30</option>
-                                  <option value="50">50</option>
-                              </select>
-                          </div>
-                                          <!-- End Select -->
+                      <div class="mb-2 mb-sm-0 me-sm-2">
+                            <select class="form-select form-select-sm" id="page-size-filter">
+                                <option value="" selected>تعداد در صفحه</option>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="50">50</option>
+                            </select>
+                      </div>         <!-- End Select -->
 
                 <!-- Nav -->
                 <ul class="nav nav-segment">
@@ -515,28 +513,13 @@
 {% endblock content %}
 
 {% block extra_js %}
-<script>
-    $(document).ready(function() {
-        
-        const params = new URLSearchParams(window.location.search);
-        const pageSize = params.get("page_size");
-
+  <script>
+    $( document ).ready(function(){
+      let current_url_params = new URLSearchParams(window.location.search)
+      let page_size = current_url_params.get("page_size") || ""
+      $("#page-size-filter").val(page_size)
+      console.log(page_size)
       
-        if (pageSize) {
-            $("#page-size-filter").val(pageSize);
-            $("#current-page-size").text(pageSize);
-        }
-
-       
-        $("#page-size-filter").change(function() {
-            const selected = $(this).val();
-            if (selected) {
-                params.set("page_size", selected);
-            } else {
-                params.delete("page_size");
-            }
-            window.location.search = params.toString();
-        });
     });
-</script>
-{% endblock %}
+  </script>
+{% endblock %} 
