@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.sessions.models import Session
+
 
 from .models import Profile
 
@@ -76,7 +78,6 @@ class CustomProfileAdmin(admin.ModelAdmin):
 admin.site.register(Profile, CustomProfileAdmin)
 admin.site.register(User, CustomUserAdmin)
 
-from django.contrib.sessions.models import Session
 
 
 class SessionAdmin(admin.ModelAdmin):
