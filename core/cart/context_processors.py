@@ -1,4 +1,4 @@
-from shop.models import ProductModel,ProductStatusType
+from shop.models import Product,ProductStatusType
 from cart.models import CartModel,CartItemModel
 
 class CartSession:
